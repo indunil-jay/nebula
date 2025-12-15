@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NebulaStream | Free YouTube Video Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+              zinc: {
+                850: '#1f1f22',
+                900: '#18181b',
+                950: '#09090b',
+              },
+              purple: {
+                400: '#a78bfa',
+                500: '#8b5cf6',
+                600: '#7c3aed',
+                900: '#4c1d95',
+              },
+            },
+            animation: {
+              'marquee': 'marquee 40s linear infinite',
+              'marquee-reverse': 'marquee 40s linear infinite reverse',
+              'beam': 'beam 2s linear infinite',
+              'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'fade-in-up': 'fadeInUp 0.7s ease-out forwards',
+              'meteor': 'meteor 5s linear infinite',
+              'shimmer': 'shimmer 2s linear infinite',
+              'shimmer-slide': 'shimmer-slide 3s ease-in-out infinite alternate',
+              'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+              'word-pull-up': 'word-pull-up 0.5s cubic-bezier(0.2, 0, 0.2, 1) forwards',
+              'accordion-down': 'accordion-down 0.2s ease-out',
+              'accordion-up': 'accordion-up 0.2s ease-out',
+              'shine': 'shine 3s linear infinite',
+              'blur-in': 'blur-in 1s cubic-bezier(0.2, 0, 0.2, 1) forwards',
+              'gradual-spacing': 'gradual-spacing 0.7s ease-out forwards',
+              'letter-pull-up': 'letter-pull-up 0.5s cubic-bezier(0.2, 0, 0.2, 1) forwards',
+              'grid-scroll': 'grid-scroll 20s linear infinite',
+              'scan': 'scan 3s linear infinite',
+              'aurora': 'aurora 10s linear infinite',
+              'highlight': 'highlight 1s ease-out forwards',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              beam: {
+                '0%': { opacity: '0', transform: 'translateX(-100%)' },
+                '50%': { opacity: '1' },
+                '100%': { opacity: '0', transform: 'translateX(100%)' },
+              },
+              'pulse-glow': {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '.5' }
+              },
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              meteor: {
+                '0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
+                '70%': { opacity: '1' },
+                '100%': { transform: 'rotate(215deg) translateX(-500px)', opacity: '0' },
+              },
+              shimmer: {
+                '0%': { backgroundPosition: '0 0' },
+                '100%': { backgroundPosition: '-200% 0' },
+              },
+              'shimmer-slide': {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(100%)' },
+              },
+              'border-beam': {
+                '100%': { offsetDistance: '100%' },
+              },
+              'word-pull-up': {
+                '0%': { opacity: '0', transform: 'translateY(20px)', filter: 'blur(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' },
+              },
+              'accordion-down': {
+                from: { height: '0', opacity: '0' },
+                to: { height: 'var(--radix-accordion-content-height)', opacity: '1' },
+              },
+              'accordion-up': {
+                from: { height: 'var(--radix-accordion-content-height)', opacity: '1' },
+                to: { height: '0', opacity: '0' },
+              },
+              shine: {
+                '0%': { backgroundPosition: '0% 0%' },
+                '50%': { backgroundPosition: '100% 100%' },
+                '100%': { backgroundPosition: '0% 0%' },
+              },
+              'blur-in': {
+                '0%': { opacity: '0', filter: 'blur(10px)' },
+                '100%': { opacity: '1', filter: 'blur(0)' },
+              },
+              'gradual-spacing': {
+                '0%': { opacity: '0', letterSpacing: '-0.1em' },
+                '100%': { opacity: '1', letterSpacing: '0' },
+              },
+              'letter-pull-up': {
+                '0%': { opacity: '0', transform: 'translateY(100%)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              'grid-scroll': {
+                '0%': { transform: 'translateY(0)' },
+                '100%': { transform: 'translateY(-50%)' },
+              },
+              scan: {
+                '0%': { top: '0%' },
+                '50%': { top: '100%' },
+                '100%': { top: '0%' },
+              },
+              aurora: {
+                '0%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                '100%': { backgroundPosition: '0% 50%' },
+              },
+              highlight: {
+                '0%': { width: '0%', opacity: '0' },
+                '100%': { width: '100%', opacity: '1' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        scroll-behavior: smooth;
+        background-color: #030014; /* Default dark base */
+      }
+      
+      /* Supabase-style Grid Background */
+      .bg-grid {
+        background-size: 40px 40px;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+      }
+
+      .dark .bg-grid {
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      }
+      
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      
+      .text-aurora {
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        background-image: linear-gradient(
+          90deg,
+          #a78bfa 0%,
+          #818cf8 25%,
+          #34d399 50%,
+          #818cf8 75%,
+          #a78bfa 100%
+        );
+        background-size: 200% auto;
+        animation: aurora 4s linear infinite;
+      }
+
+      /* Meteor Effect Helpers */
+      .meteor-effect {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 2px;
+        width: 100px;
+        background-image: linear-gradient(to right, #a78bfa, transparent);
+        opacity: 0;
+        transform: rotate(215deg) translateX(0);
+      }
+      .meteor-effect::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 1px;
+        background: linear-gradient(90deg, #a78bfa, transparent);
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #3f3f46;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #52525b;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-[#FAFAFA] dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 min-h-screen">
+    <div id="root" class="min-h-screen flex flex-col"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
